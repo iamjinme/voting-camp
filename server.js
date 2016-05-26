@@ -6,6 +6,8 @@ var express = require('express'),
     passport = require('passport'),
     Strategy = require('passport-twitter').Strategy;
 
+require('dotenv').load();
+
 // Configure the Twitter strategy for use by Passport.
 //
 // OAuth 1.0-based strategies require a `verify` function which receives the
@@ -14,9 +16,9 @@ var express = require('express'),
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 passport.use(new Strategy({
-    consumerKey: process.env.CONSUMER_KEY,
-    consumerSecret: process.env.CONSUMER_SECRET,
-    callbackURL: 'http://127.0.0.1:3000/login/twitter/return'
+    consumerKey: process.env.TWITTER_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+    callbackURL: 'http://127.0.0.1:8080/login/twitter/return'
   },
   function(token, tokenSecret, profile, cb) {
     // In this example, the user's Twitter profile is supplied as the user
@@ -45,7 +47,6 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 var app = express();
-require('dotenv').load();
 
 var mongo_uri = process.env.MONGO_URI || 'mongodb://localhost/test';
 mongoose.connect(mongo_uri);
@@ -63,7 +64,7 @@ db.once('open', function() {
   app.use('/public', express.static(process.cwd() + '/public'));
   //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
-  routes(app);
+  routes(app, passport);
 
   var port = process.env.PORT || 8080;
   app.listen(port, function () {

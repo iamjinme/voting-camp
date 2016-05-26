@@ -2,7 +2,7 @@
 
 //var FileUpload = require(process.cwd() + '/app/controllers/fileUpload.server.js');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
   
   //var fileUpload = new FileUpload();
   
