@@ -47,6 +47,9 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 var app = express();
+console.log(__dirname);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
 
 var mongo_uri = process.env.MONGO_URI || 'mongodb://localhost/test';
 mongoose.connect(mongo_uri);

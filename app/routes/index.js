@@ -8,7 +8,9 @@ module.exports = function (app, passport) {
 
   app.route('/')
     .get(function (req, res) {
-      res.sendFile(process.cwd() + '/public/index.html');
+      console.log(req.user);
+      res.render('index', { title: 'Voting Camp :: Back End Basejump FreeCodeCamp', user: req.user});
+      //res.sendFile(process.cwd() + '/public/index.html');
     });
 
   app.get('/login/twitter',
