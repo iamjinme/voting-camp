@@ -1,39 +1,52 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+		<title>Voting Camp :: Back End Basejump FreeCodeCamp</title>
+    <link href="/public/css/spectre.css" rel="stylesheet" type="text/css">
+    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet" type="text/css">
 	</head>
 
-	<header>
-		<p>Welcome, <span id="display-name"></span>!</p>
-		<a class="menu" href="/profile">Profile</a>
-		<p>|</p>
-		<a class="menu" href="/logout">Logout</a>
-	</header>
-
 	<body>
-		<div class="container">
-			<img src="/public/img/clementine_150.png" />
-			<br />
-			<p class="clementine-text">Clementine.js</p>
+    <header class="navbar">
+      <section class="navbar-section">
+        <a href="#" class="btn btn-link btn-lg">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </a>
+        <a href="/" class="navbar-brand">Voting Camp</a>
+      </section>
+      <section class="navbar-section">
+        <span>Welcome!</span>
+        <a href="#" class="btn btn-primary"><i class="fa fa-twitter" aria-hidden="true"></i> Sign In</a>
+        <a href="#" class="btn btn-link"><i class="fa fa-cog" aria-hidden="true"></i></a>        
+      </section>
+    </header>
+		<div class="container grid-960">
+      <div class="empty">
+        <img src="/public/img/vote.png" class="img-responsive centered" />
+        <h2 class="title">Voting Camp App</h2>
+        <p class="empty-meta">Voting your favorite option, great polls!</p>
+      </div>
 		</div>
-	
-		<div class="container">
-			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
-			<br />
-			<div class="btn-container">
-				<button type="submit" class="btn btn-add">CLICK ME!</button>
-				<button class="btn btn-delete">RESET</button>
-			</div>
-		</div>
-		
-		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/clickController.client.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
+    <div class="container">
+        <div class="columns">
+          <div class="column col-6 centered">
+            <form>
+            <div class="input-group column">
+                <input type="file" name="file" id="file" class="inputfile">
+                <label for="file">Choose a file</label>
+                <span class="file_size"></span>
+                <button id="upload" class="btn btn-primary input-group-btn">Upload!</button>
+            </div>
+            </form>
+            <br />
+            <p class="text-center">by <a href="https://codepen.io/mirabalj">@mirabalj</a></p>
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js"></script>
+    <script type="text/javascript" src="/controllers/clickController.client.js"></script>
 	</body>
 
 </html>
