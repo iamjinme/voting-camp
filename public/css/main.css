@@ -41,8 +41,16 @@
   text-align: center;
 }
 
+.navbar .btn-link:hover, .navbar-brand:hover {
+  color: #fff;
+}
+
 #poll .btn-link:hover {
   color: #727272;
+}
+
+.table {
+    margin: 0 auto;
 }
 
 .container a {

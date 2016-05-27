@@ -1,4 +1,25 @@
 extends ./dashboard.jade
 
 block poll
-  p My Polls
+  div#poll.columns
+    div.column.col-3.centered
+      h2.green My Polls
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th Title of your Poll
+            th Votes
+            th 
+        tbody
+          tr
+            td The first Poll
+            td 19
+            td: a(class='btn btn-link' href='/admin/remove/1'): i(class='fa fa-close' aria-hidden='true')
+          tr
+            td Second Poll
+            td 23
+            td: a(class='btn btn-link' href='/admin/remove/2'): i(class='fa fa-close' aria-hidden='true')
+          tr
+            td Third Poll
+            td 6
+            td: a(class='btn btn-link' href='/admin/remove/3'): i(class='fa fa-close' aria-hidden='true')
