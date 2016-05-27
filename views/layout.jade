@@ -9,7 +9,7 @@ html
   body
     header(class='navbar')
       section(class='navbar-section')
-        a(class='btn btn-link btn-lg' href='#')
+        a(class='btn btn-link btn-lg' href='/')
           i(class='fa fa-bars')
         a(class='navbar-brand' href='/') Voting Camp
       section(class='navbar-section')
@@ -25,3 +25,5 @@ html
             i(class='fa fa-cog' aria-hidden='true')          
           a(class='btn btn-primary' href='/logout') Logout
     block content
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js', type='text/javascript')
+    script(src='/controllers/clickController.client.js', type='text/javascript')

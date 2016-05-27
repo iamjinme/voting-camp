@@ -72,7 +72,7 @@ db.once('open', function() {
   app.use(passport.session());
 
   app.use('/public', express.static(process.cwd() + '/public'));
-  //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+  app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
   routes(app, passport);
 
