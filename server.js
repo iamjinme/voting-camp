@@ -18,7 +18,7 @@ require('dotenv').load();
 passport.use(new Strategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: 'http://localhost:8080/login/twitter/return'
+    callbackURL: process.env.APP_URL + '/login/twitter/return'
   },
   function(token, tokenSecret, profile, cb) {
     // In this example, the user's Twitter profile is supplied as the user
@@ -47,7 +47,7 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 var app = express();
-console.log(__dirname);
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
@@ -70,7 +70,7 @@ db.once('open', function() {
   // session.
   app.use(passport.initialize());
   app.use(passport.session());
-  
+
   app.use('/public', express.static(process.cwd() + '/public'));
   //app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 
@@ -80,5 +80,5 @@ db.once('open', function() {
   app.listen(port, function () {
     console.log('Node.js listening on port ' + port + '...');
   });
-  
+
 });
