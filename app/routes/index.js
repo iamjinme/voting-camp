@@ -18,13 +18,19 @@ module.exports = function (app, passport) {
   app.get('/login/twitter/return',
     passport.authenticate('twitter', { failureRedirect: '/' }),
     function(req, res) {
-      res.redirect('/');
+      res.redirect('/dashboard');
     });
 
   app.get('/logout',
     function(req, res) {
       req.session.destroy();
       res.redirect('/');
+    });
+
+  app.get('/dashboard',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+      res.render('dashboard', { user: req.user });
     });
 
   app.get('/profile',
