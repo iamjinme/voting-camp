@@ -18,7 +18,7 @@ module.exports = function (app, passport) {
   app.get('/login/twitter/return',
     passport.authenticate('twitter', { failureRedirect: '/' }),
     function(req, res) {
-      res.redirect('/dashboard');
+      res.redirect('/admin');
     });
 
   app.get('/logout',
@@ -27,14 +27,26 @@ module.exports = function (app, passport) {
       res.redirect('/');
     });
 
-  app.get('/dashboard',
-    require('connect-ensure-login').ensureLoggedIn(),
+  app.get('/admin',
+    require('connect-ensure-login').ensureLoggedIn('/'),
     function(req, res){
       res.render('dashboard', { user: req.user });
     });
 
+  app.get('/admin/new',
+    require('connect-ensure-login').ensureLoggedIn('/'),
+    function(req, res){
+      res.render('new', { user: req.user });
+    });
+
+  app.get('/admin/polls',
+    require('connect-ensure-login').ensureLoggedIn('/'),
+    function(req, res){
+      res.render('my', { user: req.user });
+    });
+
   app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn(),
+    require('connect-ensure-login').ensureLoggedIn('/'),
     function(req, res){
       res.render('profile', { user: req.user });
     });
