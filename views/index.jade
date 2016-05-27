@@ -20,9 +20,9 @@ html
             |  Sign In
         else
           span Welcome #{user.displayName} !
-          a(class='btn btn-link' href='#')
+          a(class='btn btn-link' href='/profile')
             i(class='fa fa-cog' aria-hidden='true')          
-          a(class='btn btn-primary' href='#') Logout
+          a(class='btn btn-primary' href='/logout') Logout
     div(class='container main')
       img(src='/public/img/vote.png' class='img-responsive centered')
       h2(class='title') Voting Camp App
