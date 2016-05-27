@@ -6,6 +6,8 @@ var express = require('express'),
     passport = require('passport'),
     Strategy = require('passport-twitter').Strategy;
 
+var User = require('./app/models/users.js');
+
 require('dotenv').load();
 
 // Configure the Twitter strategy for use by Passport.
@@ -21,12 +23,18 @@ passport.use(new Strategy({
     callbackURL: process.env.APP_URL + '/login/twitter/return'
   },
   function(token, tokenSecret, profile, cb) {
-    // In this example, the user's Twitter profile is supplied as the user
-    // record.  In a production-quality application, the Twitter profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
+    var user = {
+      'twitter': {
+        'id': profile._json.id,
+        'name': profile._json.name,
+        'username': profile._json.screen_name,
+        'location': profile._json.location
+      }
+    }
+    var options = { upsert: true, new: true, setDefaultsOnInsert: true };
+    User.findOneAndUpdate({ twitter: { id: profile._json.id } }, user, options, function(err, result) {
+      return cb(null, user);
+    });
 }));
 
 // Configure Passport authenticated session persistence.
