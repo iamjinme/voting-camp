@@ -14,7 +14,7 @@ html
         a(class='navbar-brand' href='/') Voting Camp
       section(class='navbar-section')
         if !user
-          span Welcome anonymous !
+          span Welcome, I know you?
           a(class='btn btn-primary' href='/login/twitter')
             i(class='fa fa-twitter' aria-hidden='true')
             |  Sign In
@@ -23,4 +23,24 @@ html
           a(class='btn btn-link' href='#')
             i(class='fa fa-cog' aria-hidden='true')          
           a(class='btn btn-primary' href='#') Logout
-        
+    div(class='container main')
+      img(src='/public/img/vote.png' class='img-responsive centered')
+      h2(class='title') Voting Camp App
+      p(class='empty-meta') Voting your favorite options in great polls!
+    div.columns
+      div.column
+        div.empty
+          i.fa.fa-bolt.fa-5x
+          p.empty-title Fast and clean
+          p.empy-meta Great graphics and fast response
+      div.column
+        div.empty
+          i.fa.fa-mobile.fa-5x
+          p.empty-title Responsive Design
+          p.empy-meta Work on tablets, mobile and your desktop
+      div.column
+        div.empty
+          i.fa.fa-twitter.fa-5x
+          p.empty-title Social Integration
+          p.empy-meta Sign on Twitter and you are ready for create polls
+              

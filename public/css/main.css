@@ -1,58 +1,87 @@
 .navbar {
   background: #727272;
 }
+
 .navbar span {
   color: #fff;
   margin-right: 10px;
 }
-    .container a {
-      text-decoration: none;
-      background: #77B3D4;
-      color: #fff;
-      padding: 5px 10px 5px 10px;
-      border-radius: 50px;
-      font-weight: bold;
-    }
-    .container a:hover {
-      color: #fff;
-    }
-    .file_size {
-      color: #fff;
-      background: #4d4d50;
-      padding: .7rem 1.5rem;
-      height: 3.2rem;
-      line-height: 1.6rem;
-      text-align: center;
-      width: 20%;
-    }
-    .title {
-      color: #77B3D4;
-    }
-    .inputfile {
-      width: 0.1px;
-      height: 0.1px;
-      opacity: 0;
-      overflow: hidden;
-      position: absolute;
-      z-index: -1;
-    }
-    .inputfile + label {
-      cursor: pointer;
-      color: white;
-      background-color: #ED686E;
-      display: inline-block;
-      border-radius: 5px 0px 0px 5px;
-      width: 70%;
-      border: 1px solid #BE5358;
-      text-align: center;
-      padding: .7rem 1.5rem;
-      height: 3.2rem;
-      line-height: 1.6rem;
-      vertical-align: middle;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .inputfile:focus + label,
+
+.main {
+  background: #B2DFDB;
+  text-align: center;
+}
+
+.title {
+  color: #727272;
+}
+
+.empty-title {
+  color: #44B39B;
+}
+
+.empty .fa-bolt {
+  color: #FFC107;
+}
+
+.empty .fa-twitter {
+  color: #1976D2;
+}
+
+.empty .fa-mobile {
+  color: #212121;
+}
+
+.container a {
+  text-decoration: none;
+  background: #77B3D4;
+  color: #fff;
+  padding: 5px 10px 5px 10px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.container a:hover {
+  color: #fff;
+}
+
+.file_size {
+  color: #fff;
+  background: #4d4d50;
+  padding: .7rem 1.5rem;
+  height: 3.2rem;
+  line-height: 1.6rem;
+  text-align: center;
+  width: 20%;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  cursor: pointer;
+  color: white;
+  background-color: #ED686E;
+  display: inline-block;
+  border-radius: 5px 0px 0px 5px;
+  width: 70%;
+  border: 1px solid #BE5358;
+  text-align: center;
+  padding: .7rem 1.5rem;
+  height: 3.2rem;
+  line-height: 1.6rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.inputfile:focus + label,
     .inputfile + label:hover {
-      opacity: 0.9;
-    }
+  opacity: 0.9;
+}
