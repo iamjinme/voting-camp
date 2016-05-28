@@ -74,14 +74,16 @@ function VotingCamp() {
     });
   }
 
-  this.getLatest = function(req, res) {
-    Latest
-      .find({}, { _id: false, __v: false })
-      .sort({'when': -1})
-      .limit(10)
-      .exec(function(err, latest) {
-        res.json(latest);
-      });
+  this.showPoll = function(req, res) {
+    var hash = req.params.hash;
+    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';
+    Poll.findOne({ 'hash': hash }, { _id: false, __v: false }, function(err, poll) {
+      if (err) throw err;
+      share += poll.title + ' Vote in: ' + fullUrl;
+      console.log(JSON.stringify(poll));
+      res.render('poll', { poll: poll, share: share })
+    });
   };
 
 };

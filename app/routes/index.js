@@ -44,6 +44,9 @@ module.exports = function (app, passport) {
       res.render('my', { user: req.user });
     });
 
+  app.route('/polls/:hash')
+      .get(votingCamp.showPoll);
+      
   app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn('/'),
     function(req, res){
@@ -52,5 +55,7 @@ module.exports = function (app, passport) {
 
   app.route('/api/polls')
       .post(votingCamp.newPoll);
+
+
 
 };

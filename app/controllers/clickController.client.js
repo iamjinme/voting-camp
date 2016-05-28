@@ -22,7 +22,6 @@ $(document).ready(function() {
         $('#message').html(' Great, you have created poll "' + json.title + '"');
         $('#go_poll').attr('href', '/poll/' + json.hash);
         $('#new_poll').addClass('hide');
-        console.log(json);
       });
     };
     e.preventDefault();
