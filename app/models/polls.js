@@ -9,13 +9,15 @@ var Vote = new Schema({
 
 var Options = new Schema({
 	name: String,
-	vote: [Vote]
+	votes: [Vote]
 });
 
 var Poll = new Schema({
 	user: Number,
 	title: String,
+	hash: String,
 	date: Date,
+	votes: Number,
 	options: [Options]
 });
 
