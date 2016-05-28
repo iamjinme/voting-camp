@@ -47,11 +47,12 @@ function VotingCamp() {
     });
   };
 
-  this.savePoll = function(term) {
-    var last = { 'term': term, 'when': new Date() };
-    var options = { upsert: true, new: true, setDefaultsOnInsert: true };
-		Latest.findOneAndUpdate({ 'term': term }, last, options, function(err, result) {
-			if (err) { return false; }
+  this.addVote = function(req, res) {
+    var hash = req.body.hash;
+		Poll.findOne({ 'hash': hash }, function(err, poll) {
+      if (err) throw err;
+      console.log(poll);
+      res.json(poll);
     });
   };
 
