@@ -3,16 +3,16 @@ extends ./dashboard.jade
 block poll
   div#poll.columns
     div.column.col-3.centered
-      form
+      form#new_poll
         h2.green New Poll
         div.form-group
-          label(class='form-label' for='name') Title of your Poll
-          input(class='form-input' type='text' id='name' placeholder='What about is this poll?')
+          label(class='form-label' for='title') Title of your Poll
+          input(class='form-input' type='text' name='title' id='title' placeholder='What about is this poll?')
         div#options.form-group
           label(class='form-label') Options
           input(class='form-input' type='text' name='options[]' placeholder='Your first option!')
           input(class='form-input' type='text' name='options[]' placeholder='Other option...')
-      br/
-      div.form-group
-        button(class='btn btn-link' id='more') More options
-        button(class='btn btn-primary') Submit
+        br/
+        div.form-group
+          button(class='btn btn-link' id='more') More options
+          button(class='btn btn-primary') Create poll
