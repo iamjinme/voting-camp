@@ -1,0 +1,28 @@
+extends ./layout.jade
+
+block content
+  div(class='container main')
+    img(src='/public/img/vote.png' class='img-responsive centered')
+    h2(class='title') PollStar App
+    p(class='empty-meta') Voting your favorite options in great polls!
+  div.container
+    div.columns.text-center
+      div.column.col-md-4
+        h2 #{poll.title}
+        a(class='btn btn-primary' href=share target="_blank")
+          i(class='fa fa-twitter' aria-hidden='true')
+          |  Share this poll!
+      div.column.col-md-4
+        form#vote_poll
+          h2 Options
+          div.form-group
+            select.form-select
+              option(value='') Choose an option
+              each option, i in poll.options
+                option(value=i) #{option.name}
+          br/
+          div.form-group
+            button(class='btn btn-link' id='show_graph') Show results
+            button(class='btn btn-primary') Vote!
+      div.column.col-md-4
+        h2 Results
