@@ -61,7 +61,7 @@ function VotingCamp() {
       options.push({'name': req.body.options[i], 'votes': []});
     }
     var poll = new Poll({
-      'user': req.user.twitter.id,
+      'user_id': req.user._id,
       'title': req.body.title,
       'hash': ys.hash(req.body.title),
       'date': new Date(),

@@ -32,8 +32,8 @@ passport.use(new Strategy({
       }
     }
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    User.findOneAndUpdate({ twitter: { id: profile._json.id } }, user, options, function(err, result) {
-      return cb(null, user);
+    User.findOneAndUpdate({ 'twitter.id': profile._json.id }, user, options, function(err, result) {
+      return cb(null, result);
     });
 }));
 

@@ -13,7 +13,7 @@ var Options = new Schema({
 });
 
 var Poll = new Schema({
-	user: Number,
+	user_id: String,
 	title: String,
 	hash: String,
 	date: Date,
