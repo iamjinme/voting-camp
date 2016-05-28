@@ -2,7 +2,14 @@ extends ./dashboard.jade
 
 block poll
   div#poll.columns
-    div.column.col-3.centered
+    div.column.col-6.centered
+      div.hide
+        div.toast.toast-success
+          button(class='btn btn-clear float-right')
+          span
+            i.fa.fa-exclamation-circle
+            span#message  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        a#go_poll(class='btn btn-link' href='#') Go to Poll!
       form#new_poll
         h2.green New Poll
         div.form-group
@@ -16,3 +23,5 @@ block poll
         div.form-group
           button(class='btn btn-link' id='more') More options
           button(class='btn btn-primary') Create poll
+
+            

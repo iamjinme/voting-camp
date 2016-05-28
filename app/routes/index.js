@@ -8,7 +8,7 @@ module.exports = function (app, passport) {
 
   app.route('/')
     .get(function (req, res) {
-      res.render('index', { title: 'Voting Camp :: Back End Basejump FreeCodeCamp', user: req.user});
+      res.render('index', { title: 'PollStar :: Back End Basejump FreeCodeCamp', user: req.user});
     });
 
   app.get('/login/twitter',
