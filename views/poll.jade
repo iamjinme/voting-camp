@@ -16,7 +16,7 @@ block content
         form#vote_poll
           h2.green Options
           div.form-group
-            select.form-select
+            select(class='form-select' name='option')
               option(value='') Choose an option
               each option, i in poll.options
                 option(value=i) #{option.name}

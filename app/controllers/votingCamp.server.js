@@ -12,6 +12,21 @@ function VotingCamp() {
   var api_key = process.env.API_KEY;
   var self = this;
 
+  var ipInList = function(array, ip) {
+    var list = [];
+    var ret = false;
+    // Join Options votes
+    for(var i in array) {
+      list = list.concat(array[i].votes);
+    }
+    // Verify Ip in list
+    for(var i in list) {
+      if (list[i].ip === ip)
+        ret = true;
+    }
+    return ret;
+  }
+
   this.countLatest = function() {
     Latest.count({}, function( err, count){
       return count;
@@ -49,10 +64,18 @@ function VotingCamp() {
 
   this.addVote = function(req, res) {
     var hash = req.body.hash;
-		Poll.findOne({ 'hash': hash }, function(err, poll) {
+    var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+    var option = parseInt(req.body.option);
+		Poll.findOne({ 'hash': hash }, { '_id': false }, function(err, poll) {
       if (err) throw err;
-      console.log(poll);
-      res.json(poll);
+      if (!ipInList(poll.options, ip)) {
+        poll.votes++;
+        poll.options[option].votes.push({ip: ip});
+        poll.save();
+        res.json(poll);
+      } else {
+        res.json({ error: true, message: 'Sorry, you vote for this poll before!' });
+      };
     });
   };
 
@@ -82,7 +105,6 @@ function VotingCamp() {
     Poll.findOne({ 'hash': hash }, { _id: false, __v: false }, function(err, poll) {
       if (err) throw err;
       share += poll.title + ' Vote in: ' + fullUrl;
-      console.log(JSON.stringify(poll));
       res.render('poll', { poll: poll, share: share })
     });
   };
