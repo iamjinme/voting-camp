@@ -21,11 +21,16 @@ $(document).ready(function() {
         type: 'POST',
         data: data
       }).done(function(json){
-        //$('div.hide').removeClass('hide');
-        //$('#message').html(' Great, you have created poll "' + json.title + '"');
-        //$('#go_poll').attr('href', '/poll/' + json.hash);
-        //$('#new_poll').addClass('hide');
-        console.log(json);
+        if(json.error) {
+          $('#message').html(' ' + json.message);
+          $('div.toast').removeClass('toast-success').addClass('toast-danger');
+          $('div.hide').removeClass('hide');
+        } else {
+          $('#message').html(' Great, you vote has been registered!');
+          $('div.toast').removeClass('toast-danger').addClass('toast-success');
+          $('div.hide').removeClass('hide');
+          console.log(json);          
+        }
       });
     };
     e.preventDefault();

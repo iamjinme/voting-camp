@@ -21,8 +21,10 @@ function VotingCamp() {
     }
     // Verify Ip in list
     for(var i in list) {
-      if (list[i].ip === ip)
+      if (list[i].ip === ip) {
         ret = true;
+        break;
+      }
     }
     return ret;
   }
