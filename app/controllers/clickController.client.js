@@ -16,13 +16,15 @@ $(document).ready(function() {
       data: data_graph
     });
   };
+  // Clear buttons
+  $('.btn-clear').click(function() {
+    $(this).parent().addClass('hide');
+  })
   // Submit Form :: Vote Poll
   $('#vote_poll')
   .submit(function(e) {
     e.preventDefault();
-    console.log('vote_poll');
     var data = $(this).serialize();
-    console.log($('select').val());
     if ($('select').val() !== '') {
       $.ajax({
         url: '/api/vote',
