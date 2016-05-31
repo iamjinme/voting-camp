@@ -9,6 +9,19 @@ $(document).ready(function() {
     $('#options').append('<input type="text" name="options[]" placeholder="...and more" class="form-input">');
     e.preventDefault();
   });
+  // Delete functions actions
+  $('.delete').click(function() {
+    var tr = $(this).parent().parent().data();
+    $('#delete_title').html(tr.title);
+    $('#delete_enter').data('hash', tr.hash);
+    $('#delete').addClass('active');
+  });
+  $('#delete_cancel').click(function() {
+    $('#delete').removeClass('active');
+  });
+  $('#delete_enter').click(function() {
+    $('#delete').removeClass('active');
+  });
   // Create Donut Graph
   function createGraph(data) {
     $('#donut').html('');
@@ -23,7 +36,12 @@ $(document).ready(function() {
   };
   // Clear buttons
   $('.btn-clear').click(function() {
-    $(this).parent().addClass('hide');
+    var modal = $(this).data('modal');
+    if (modal) {
+      $(modal).removeClass('active');
+    } else {
+      $(this).parent().addClass('hide');
+    }
   })
   // Submit Form :: Vote Poll
   $('#vote_poll')

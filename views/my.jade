@@ -2,7 +2,7 @@ extends ./dashboard.jade
 
 block poll
   div#poll.columns
-    div.column.col-3.centered
+    div.column.col-md-3.centered
       h2.green My Polls
       table.table.table-striped.table-hover
         thead
@@ -11,12 +11,24 @@ block poll
             th Votes
             th
             th
-            th 
         tbody
           each poll, i in polls
-            tr
+            tr(data-title=poll.title data-hash=poll.hash)
               td: a(class='btn btn-link' href='/polls/' + poll.hash) #{poll.title}
               td #{poll.votes}
               td: a(class='btn btn-link tooltip' href='#' data-tooltip='Add new option'): i(class='fa fa-plus-circle' aria-hidden='true')
-              td: a(class='btn btn-link tooltip tooltip-right' href='#' data-tooltip='Delete poll?'): i(class='fa fa-close' aria-hidden='true')
-              td
+              td: a(class='btn btn-link delete tooltip tooltip-right' href='#' data-tooltip='Delete poll?'): i(class='fa fa-close' aria-hidden='true')
+
+  div#delete.modal.modal-sm
+    div.modal-overlay
+    div.modal-container
+      div.modal-header
+        button(type="button" data-modal='#delete' class="btn btn-clear float-right" aria-label="Close")
+        div.modal-title
+          | Delete your poll?
+      div.modal-body
+        div.content
+          p#delete_title Are you sure?
+      div.modal-footer
+        a#delete_cancel.btn.btn-link Cancel
+        button#delete_enter.btn.btn-primary(data-hash='tre') Delete
