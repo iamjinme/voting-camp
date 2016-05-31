@@ -9,17 +9,14 @@ block poll
           tr
             th Title of your Poll
             th Votes
+            th
+            th
             th 
         tbody
-          tr
-            td: a(class='btn btn-link' href='/admin/poll/1') The first Poll
-            td 19
-            td: a(class='btn btn-link' href='/admin/remove/1'): i(class='fa fa-close' aria-hidden='true')
-          tr
-            td: a(class='btn btn-link' href='/admin/poll/2') Second Poll
-            td 23
-            td: a(class='btn btn-link' href='/admin/remove/2'): i(class='fa fa-close' aria-hidden='true')
-          tr
-            td: a(class='btn btn-link' href='/admin/poll/2') Third Poll
-            td 6
-            td: a(class='btn btn-link' href='/admin/remove/3'): i(class='fa fa-close' aria-hidden='true')
+          each poll, i in polls
+            tr
+              td: a(class='btn btn-link' href='/polls/' + poll.hash) #{poll.title}
+              td #{poll.votes}
+              td: a(class='btn btn-link tooltip' href='#' data-tooltip='Add new option'): i(class='fa fa-plus-circle' aria-hidden='true')
+              td: a(class='btn btn-link tooltip tooltip-right' href='#' data-tooltip='Delete poll?'): i(class='fa fa-close' aria-hidden='true')
+              td

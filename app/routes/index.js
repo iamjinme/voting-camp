@@ -40,9 +40,7 @@ module.exports = function (app, passport) {
 
   app.get('/admin/polls',
     require('connect-ensure-login').ensureLoggedIn('/'),
-    function(req, res){
-      res.render('my', { user: req.user });
-    });
+    votingCamp.myPolls);
 
   app.route('/polls/:hash')
       .get(votingCamp.showPoll);

@@ -73,6 +73,13 @@ function VotingCamp() {
     });
   }
 
+  this.myPolls = function (req, res) {
+    Poll.find({ 'user_id': req.user._id}, { _id: false, __v: false }, function(err, polls) {
+      if (err) throw err;
+      res.render('my', { user: req.user, polls: polls });
+    });
+  }
+
   this.showPoll = function(req, res) {
     var hash = req.params.hash;
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -81,7 +88,7 @@ function VotingCamp() {
       if (err) throw err;
       share += poll.title + ' Vote at ' + fullUrl;
       var data_graph = getDataGraph(poll.options);
-      res.render('poll', { poll: poll, share: share, data_graph: data_graph })
+      res.render('poll', { user: req.user, poll: poll, share: share, data_graph: data_graph })
     });
   };
 

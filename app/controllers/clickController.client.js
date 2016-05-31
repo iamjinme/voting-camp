@@ -7,6 +7,7 @@ $(document).ready(function() {
   });
   $('#more').click(function() {
     $('#options').append('<input type="text" name="options[]" placeholder="...and more" class="form-input">');
+    e.preventDefault();
   });
   // Create Donut Graph
   function createGraph(data) {
@@ -27,7 +28,6 @@ $(document).ready(function() {
   // Submit Form :: Vote Poll
   $('#vote_poll')
   .submit(function(e) {
-    e.preventDefault();
     var data = $(this).serialize();
     if ($('select').val() !== '') {
       $.ajax({
