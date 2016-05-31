@@ -20,7 +20,21 @@ $(document).ready(function() {
     $('#delete').removeClass('active');
   });
   $('#delete_enter').click(function() {
+    var hash = $(this).data('hash');
     $('#delete').removeClass('active');
+    $.ajax({
+      url: '/api/polls/' + hash,
+      type: 'DELETE'
+    }).done(function(json){
+      if(json.error) {
+        $('#message').html(' ' + json.message);
+        $('div.toast').removeClass('toast-success').addClass('toast-danger').removeClass('hide');
+      } else {
+        $('#tr_' + hash).remove();
+        $('#message').html(' Poll deleted successfull!');
+        $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
+      }
+    });
   });
   // Create Donut Graph
   function createGraph(data) {

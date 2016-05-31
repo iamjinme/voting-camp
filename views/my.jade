@@ -3,6 +3,11 @@ extends ./dashboard.jade
 block poll
   div#poll.columns
     div.column.col-md-3.centered
+      div.toast.hide
+        button(class='btn btn-clear float-right')
+        span
+          i.fa.fa-exclamation-circle
+          span#message  Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
       h2.green My Polls
       table.table.table-striped.table-hover
         thead
@@ -13,7 +18,7 @@ block poll
             th
         tbody
           each poll, i in polls
-            tr(data-title=poll.title data-hash=poll.hash)
+            tr(id='tr_' + poll.hash data-title=poll.title data-hash=poll.hash)
               td: a(class='btn btn-link' href='/polls/' + poll.hash) #{poll.title}
               td #{poll.votes}
               td: a(class='btn btn-link tooltip' href='#' data-tooltip='Add new option'): i(class='fa fa-plus-circle' aria-hidden='true')
