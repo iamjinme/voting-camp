@@ -8,8 +8,6 @@ ys.set_mask_len(70);
 
 function VotingCamp() {
 
-  var cx_id = process.env.CX_ID;
-  var api_key = process.env.API_KEY;
   var self = this;
 
   var ipInList = function(array, ip) {
@@ -37,41 +35,6 @@ function VotingCamp() {
     return data;
   }
 
-  this.countLatest = function() {
-    Latest.count({}, function( err, count){
-      return count;
-    });
-  };
-
-  this.getSearch = function(req, res) {
-    var query = url.parse(req.url, true).query
-    var offset = parseInt(query.offset || "0");
-    var api_url  = 'https://www.googleapis.com/customsearch/v1/';
-        api_url += '?q=' + req.params.term;
-        api_url += '&searchType=image';
-        api_url += '&key=' + api_key;
-        api_url += '&cx=' + cx_id;
-        if (offset > 0)
-          api_url += '&start=' + offset;
-    // Save search
-    self.saveSearch(req.params.term);
-    // Call API Custom Search Google
-    request(api_url, function (error, response, body) {
-      var items = [];
-      if (!error && response.statusCode == 200) {
-        var data = JSON.parse(body).items;
-        for (var i in data) {
-          items.push({ "url": data[i].link,
-                       "title": data[i].title,
-                       "thumbnail": data[i].image.thumbnailLink,
-                       "context": data[i].image.contextLink
-          });
-        };
-        res.json(items);
-      };
-    });
-  };
-
   this.addVote = function(req, res) {
     var hash = req.body.hash;
     var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
@@ -84,8 +47,7 @@ function VotingCamp() {
         poll.save();
         res.json(getDataGraph(poll.options));
       } else {
-        res.json(getDataGraph(poll.options));
-        //res.json({ error: true, message: 'Sorry, you voted for this poll before!' });
+        res.json({ error: true, message: 'Sorry, you voted for this poll before!' });
       };
     });
   };
