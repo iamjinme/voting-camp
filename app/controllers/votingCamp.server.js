@@ -76,7 +76,7 @@ function VotingCamp() {
         poll.save();
         res.json(poll);
       } else {
-        res.json({ error: true, message: 'Sorry, you vote for this poll before!' });
+        res.json({ error: true, message: 'Sorry, you voted for this poll before!' });
       };
     });
   };
@@ -101,13 +101,18 @@ function VotingCamp() {
   }
 
   this.showPoll = function(req, res) {
+    var data_graph = [
+        {label: "Download Sales", value: 12},
+        {label: "In-Store Sales", value: 30},
+        {label: "Mail-Order Sales", value: 20}
+      ];
     var hash = req.params.hash;
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';
     Poll.findOne({ 'hash': hash }, { _id: false, __v: false }, function(err, poll) {
       if (err) throw err;
       share += poll.title + ' Vote in: ' + fullUrl;
-      res.render('poll', { poll: poll, share: share })
+      res.render('poll', { poll: poll, share: share, data_graph: data_graph })
     });
   };
 

@@ -8,6 +8,14 @@ $(document).ready(function() {
   $('#more').click(function() {
     $('#options').append('<input type="text" name="options[]" placeholder="...and more" class="form-input">');
   });
+  // Create Donut Graph
+  if($('#donut').length) {
+    Morris.Donut({
+      element: 'donut',
+      colors: ['#727272', '#009688', '#FFC107', '#1976D2'],
+      data: data_graph
+    });
+  };
   // Submit Form :: Vote Poll
   $('#vote_poll')
   .submit(function(e) {
@@ -29,7 +37,7 @@ $(document).ready(function() {
           $('#message').html(' Great, you vote has been registered!');
           $('div.toast').removeClass('toast-danger').addClass('toast-success');
           $('div.hide').removeClass('hide');
-          console.log(json);          
+          console.log(json);
         }
       });
     };

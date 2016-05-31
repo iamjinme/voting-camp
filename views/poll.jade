@@ -1,5 +1,8 @@
 extends ./layout.jade
 
+block css
+  link(href='http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css', rel='stylesheet')
+  
 block content
   div(class='container main')
     img(src='/public/img/vote.png' class='img-responsive centered')
@@ -29,7 +32,13 @@ block content
           br/
           input(type='hidden' name='hash' value=poll.hash)
           div.form-group
-            button(class='btn btn-link' id='show_graph') Show results
+            button(class='btn btn-link' id='reload_graph') Reload results
             button(class='btn btn-primary') Vote!
       div.column.col-md-4
-        h2 Results
+        div#donut
+        script var data_graph = !{JSON.stringify(data_graph)}
+        
+block js
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js', type='text/javascript')
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js', type='text/javascript')
+  
