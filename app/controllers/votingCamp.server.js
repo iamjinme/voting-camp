@@ -73,8 +73,21 @@ function VotingCamp() {
     });
   }
 
+  this.delPoll = function (req, res) {
+    var hash = req.params.hash;
+    Poll.findOne({ 'hash': hash }, function(err, poll) {
+      if (err) throw err;
+      if (poll) {
+        poll.remove();
+        res.json({ id: poll.hash });
+      } else {
+        res.json({ error: true, message: 'Poll not found!' });
+      }
+    });
+  }
+
   this.myPolls = function (req, res) {
-    Poll.find({ 'user_id': req.user._id}, { _id: false, __v: false }, function(err, polls) {
+    Poll.find({ 'user_id': req.user._id }, { _id: false, __v: false }, function(err, polls) {
       if (err) throw err;
       res.render('my', { user: req.user, polls: polls });
     });

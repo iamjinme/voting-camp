@@ -57,4 +57,7 @@ module.exports = function (app, passport) {
   app.route('/api/vote')
       .post(votingCamp.addVote);
 
+  app.route('/api/polls/:hash')
+      .delete(votingCamp.delPoll);
+
 };
