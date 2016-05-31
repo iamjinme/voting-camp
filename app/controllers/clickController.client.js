@@ -33,12 +33,10 @@ $(document).ready(function() {
       }).done(function(json){
         if(json.error) {
           $('#message').html(' ' + json.message);
-          $('div.toast').removeClass('toast-success').addClass('toast-danger');
-          $('div.hide').removeClass('hide');
+          $('div.toast').removeClass('toast-success').addClass('toast-danger').removeClass('hide');
         } else {
           $('#message').html(' Great, you vote has been registered!');
-          $('div.toast').removeClass('toast-danger').addClass('toast-success');
-          $('div.hide').removeClass('hide');
+          $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
           console.log(json);
         }
       });

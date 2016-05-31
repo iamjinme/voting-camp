@@ -29,6 +29,14 @@ function VotingCamp() {
     return ret;
   }
 
+  var getDataGraph = function(options) {
+    var data = [];
+    for(var i in options) {
+      data.push({ label: options[i].name, value: options[i].votes.length });
+    }
+    return data;
+  }
+
   this.countLatest = function() {
     Latest.count({}, function( err, count){
       return count;
@@ -74,9 +82,10 @@ function VotingCamp() {
         poll.votes++;
         poll.options[option].votes.push({ip: ip});
         poll.save();
-        res.json(poll);
+        res.json(getDataGraph(poll.options));
       } else {
-        res.json({ error: true, message: 'Sorry, you voted for this poll before!' });
+        res.json(getDataGraph(poll.options));
+        //res.json({ error: true, message: 'Sorry, you voted for this poll before!' });
       };
     });
   };
@@ -101,17 +110,13 @@ function VotingCamp() {
   }
 
   this.showPoll = function(req, res) {
-    var data_graph = [
-        {label: "Download Sales", value: 12},
-        {label: "In-Store Sales", value: 30},
-        {label: "Mail-Order Sales", value: 20}
-      ];
     var hash = req.params.hash;
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';
     Poll.findOne({ 'hash': hash }, { _id: false, __v: false }, function(err, poll) {
       if (err) throw err;
-      share += poll.title + ' Vote in: ' + fullUrl;
+      share += poll.title + ' Vote at ' + fullUrl;
+      var data_graph = getDataGraph(poll.options);
       res.render('poll', { poll: poll, share: share, data_graph: data_graph })
     });
   };
