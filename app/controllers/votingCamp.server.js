@@ -30,7 +30,9 @@ function VotingCamp() {
   var getDataGraph = function(options) {
     var data = [];
     for(var i in options) {
-      data.push({ label: options[i].name, value: options[i].votes.length });
+      if(options[i].votes.length) {
+        data.push({ label: options[i].name, value: options[i].votes.length });
+      }
     }
     return data;
   }
@@ -39,7 +41,7 @@ function VotingCamp() {
     var hash = req.body.hash;
     var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     var option = parseInt(req.body.option);
-		Poll.findOne({ 'hash': hash }, { '_id': false }, function(err, poll) {
+		Poll.findOne({ 'hash': hash }, function(err, poll) {
       if (err) throw err;
       if (!ipInList(poll.options, ip)) {
         poll.votes++;

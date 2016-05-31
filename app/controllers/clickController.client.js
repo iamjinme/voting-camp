@@ -9,12 +9,16 @@ $(document).ready(function() {
     $('#options').append('<input type="text" name="options[]" placeholder="...and more" class="form-input">');
   });
   // Create Donut Graph
-  if($('#donut').length) {
+  function createGraph(data) {
+    $('#donut').html('');
     Morris.Donut({
       element: 'donut',
       colors: ['#727272', '#009688', '#FFC107', '#1976D2'],
-      data: data_graph
+      data: data
     });
+  };
+  if($('#donut').length && data_graph.length) {
+    createGraph(data_graph);
   };
   // Clear buttons
   $('.btn-clear').click(function() {
@@ -37,7 +41,7 @@ $(document).ready(function() {
         } else {
           $('#message').html(' Great, you vote has been registered!');
           $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
-          console.log(json);
+          createGraph(json);
         }
       });
     };
@@ -55,7 +59,7 @@ $(document).ready(function() {
       }).done(function(json){
         $('div.hide').removeClass('hide');
         $('#message').html(' Great, you have created poll "' + json.title + '"');
-        $('#go_poll').attr('href', '/poll/' + json.hash);
+        $('#go_poll').attr('href', '/polls/' + json.hash);
         $('#new_poll').addClass('hide');
       });
     };
