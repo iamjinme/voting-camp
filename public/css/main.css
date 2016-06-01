@@ -17,6 +17,15 @@
   color: #727272;
 }
 
+.credits {
+  text-decoration: none;
+  background: #E0995E;
+  color: #fff;
+  padding: 5px 10px 5px 10px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
 .empty-title {
   color: #44B39B;
 }
