@@ -17,13 +17,13 @@ html
       section(class='navbar-section')
         a(class='btn btn-link' href='/polls') Show Polls      
         if !user
-          span Welcome, Do I know you?
+          span.hide-sm Welcome, Do I know you?
           a(class='btn btn-primary' href='/login/twitter')
             i(class='fa fa-twitter' aria-hidden='true')
             |  Sign In
         else
           a(class='btn btn-link' href="/admin") Dashboard
-          span Welcome #{user.twitter.name} !
+          span.hide-sm Welcome #{user.twitter.name} !
           a(class='btn btn-link' href='#')
             i(class='fa fa-cog' aria-hidden='true')          
           a(class='btn btn-primary' href='/logout') Logout
