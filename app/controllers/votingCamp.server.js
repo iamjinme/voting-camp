@@ -5,6 +5,7 @@
 var ys = require('ys-hash');
 var Poll = require('../models/polls.js');
 ys.set_mask_len(70);
+ys.set_symbols('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
 function VotingCamp() {
 
