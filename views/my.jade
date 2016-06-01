@@ -21,7 +21,7 @@ block poll
             tr(id='tr_' + poll.hash data-title=poll.title data-hash=poll.hash)
               td: a(class='btn btn-link' href='/polls/' + poll.hash) #{poll.title}
               td #{poll.votes}
-              td: a(class='btn btn-link tooltip' href='#' data-tooltip='Add new option'): i(class='fa fa-plus-circle' aria-hidden='true')
+              td: a(class='btn btn-link add tooltip' href='#' data-tooltip='Add new option'): i(class='fa fa-plus-circle' aria-hidden='true')
               td: a(class='btn btn-link delete tooltip tooltip-right' href='#' data-tooltip='Delete poll?'): i(class='fa fa-close' aria-hidden='true')
 
   div#delete.modal.modal-sm
@@ -36,4 +36,22 @@ block poll
           p#delete_title Are you sure?
       div.modal-footer
         a#delete_cancel.btn.btn-link Cancel
-        button#delete_enter.btn.btn-primary(data-hash='tre') Delete
+        button#delete_enter.btn.btn-primary(data-hash='') Delete
+
+  div#add.modal.modal-sm
+    div.modal-overlay
+    div.modal-container
+      div.modal-header
+        button(type="button" data-modal='#add' class="btn btn-clear float-right" aria-label="Close")
+        div.modal-title
+          | Add new option to poll?
+      div.modal-body
+        div.content
+          form#add_poll
+            div.form-group
+              label(class="form-label" for="add-option" id="add_title") New option
+              input(class="form-input" type="text" name='add-option' id="add-option" placeholder="Whats is the choice?")
+            input(type='hidden' name='hash' id='add_hash' value='')
+      div.modal-footer
+        a#add_cancel.btn.btn-link Cancel
+        button#add_enter.btn.btn-primary Submit

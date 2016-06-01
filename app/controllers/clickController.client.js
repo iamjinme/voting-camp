@@ -57,6 +57,43 @@ $(document).ready(function() {
       $(this).parent().addClass('hide');
     }
   })
+  // Add actions
+  $('.add').click(function() {
+    var tr = $(this).parent().parent().data();
+    $('#add_title').html('New option for ' + tr.title);
+    $('#add_hash').val(tr.hash);
+    $('#add').addClass('active');
+  });
+  $('#add_cancel').click(function() {
+    $('#add').removeClass('active');
+  });
+  $('#add_enter').click(function() {
+    $('#add_poll').submit();
+  });
+  // Submit Form :: Add Poll
+  $('#add_poll')
+  .submit(function(e) {
+    console.log($('add-option').val(), 'add-option');
+    var data = $(this).serialize();
+    if ($('#add-option').val()) {
+      $('#add').removeClass('active');
+      $.ajax({
+        url: '/api/add',
+        type: 'POST',
+        data: data
+      }).done(function(json){
+        if(json.error) {
+          $('#message').html(' ' + json.message);
+          $('div.toast').removeClass('toast-success').addClass('toast-danger').removeClass('hide');
+        } else {
+          $('#message').html(' Fine, the option has been add to Poll!');
+          $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
+          createGraph(json);
+        }
+      });
+    };
+    e.preventDefault();
+  });
   // Submit Form :: Vote Poll
   $('#vote_poll')
   .submit(function(e) {
