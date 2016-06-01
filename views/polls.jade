@@ -1,0 +1,21 @@
+extends ./layout.jade
+
+block content
+  div(class='container main')
+    img(src='/public/img/vote.png' class='img-responsive centered')
+    h2(class='title') PollStar App
+    p(class='empty-meta') Voting your favorite options in great polls!
+  div.container
+    div.columns.text-center
+      div.column.col-md-4.centered 
+        h2.green Great polls, vote!
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Title of Poll
+              th Votes
+          tbody
+            each poll, i in polls
+              tr
+                td: a(class='btn btn-link' href='/polls/' + poll.hash) #{poll.title}
+                td #{poll.votes}

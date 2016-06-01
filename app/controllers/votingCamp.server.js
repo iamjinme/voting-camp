@@ -74,6 +74,7 @@ function VotingCamp() {
   }
 
   this.delPoll = function (req, res) {
+    console.log(req.isAuthenticated());
     var hash = req.params.hash;
     Poll.findOne({ 'hash': hash }, function(err, poll) {
       if (err) throw err;
@@ -87,13 +88,23 @@ function VotingCamp() {
   }
 
   this.myPolls = function (req, res) {
+    console.log(req.isAuthenticated());
     Poll.find({ 'user_id': req.user._id }, { _id: false, __v: false }, function(err, polls) {
       if (err) throw err;
       res.render('my', { user: req.user, polls: polls });
     });
   }
 
+  this.showPolls = function (req, res) {
+    console.log(req.isAuthenticated());
+    Poll.find({}, { _id: false, __v: false }, function(err, polls) {
+      if (err) throw err;
+      res.render('polls', { user: req.user, polls: polls });
+    });
+  }
+
   this.showPoll = function(req, res) {
+    console.log(req.isAuthenticated());
     var hash = req.params.hash;
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';

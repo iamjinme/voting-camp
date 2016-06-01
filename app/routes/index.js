@@ -43,7 +43,10 @@ module.exports = function (app, passport) {
     votingCamp.myPolls);
 
   app.route('/polls/:hash')
-      .get(votingCamp.showPoll);
+    .get(votingCamp.showPoll);
+
+  app.route('/polls')
+    .get(votingCamp.showPolls);
 
   app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn('/'),
