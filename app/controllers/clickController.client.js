@@ -62,6 +62,7 @@ $(document).ready(function() {
     var tr = $(this).parent().parent().data();
     $('#add_title').html('New option for ' + tr.title);
     $('#add_hash').val(tr.hash);
+    $('#add_option').val('');
     $('#add').addClass('active');
   });
   $('#add_cancel').click(function() {
@@ -73,12 +74,11 @@ $(document).ready(function() {
   // Submit Form :: Add Poll
   $('#add_poll')
   .submit(function(e) {
-    console.log($('add-option').val(), 'add-option');
     var data = $(this).serialize();
-    if ($('#add-option').val()) {
+    if ($('#add_option').val()) {
       $('#add').removeClass('active');
       $.ajax({
-        url: '/api/add',
+        url: '/api/option',
         type: 'POST',
         data: data
       }).done(function(json){
@@ -88,7 +88,6 @@ $(document).ready(function() {
         } else {
           $('#message').html(' Fine, the option has been add to Poll!');
           $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
-          createGraph(json);
         }
       });
     };

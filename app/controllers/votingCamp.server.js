@@ -38,6 +38,21 @@ function VotingCamp() {
     return data;
   }
 
+  this.addOption = function(req, res) {
+    var hash = req.body.hash;
+    var option = req.body.add_option;
+		Poll.findOne({ 'hash': hash }, function(err, poll) {
+      if (err) throw err;
+      if (poll) {
+        poll.options.push({'name': option, 'votes': []});
+        poll.save();
+        res.json(poll);
+      } else {
+        res.json({ error: true, message: 'Sorry, poll not found!' });
+      };
+    });
+  };
+
   this.addVote = function(req, res) {
     var hash = req.body.hash;
     var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);

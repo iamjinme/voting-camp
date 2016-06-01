@@ -62,6 +62,10 @@ module.exports = function (app, passport) {
   app.post('/api/vote',
     votingCamp.addVote);
 
+  app.post('/api/option',
+    ensureLoggedIn('/'),
+    votingCamp.addOption);
+
   app.delete('/api/polls/:hash',
     ensureLoggedIn('/'),
     votingCamp.delPoll);
