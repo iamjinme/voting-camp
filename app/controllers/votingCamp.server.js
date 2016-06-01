@@ -110,9 +110,13 @@ function VotingCamp() {
     var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';
     Poll.findOne({ 'hash': hash }, { _id: false, __v: false }, function(err, poll) {
       if (err) throw err;
-      share += poll.title + ' Vote at ' + fullUrl;
-      var data_graph = getDataGraph(poll.options);
-      res.render('poll', { user: req.user, poll: poll, share: share, data_graph: data_graph })
+      if(poll) {
+        share += poll.title + ' Vote at ' + fullUrl;
+        var data_graph = getDataGraph(poll.options);
+        res.render('poll', { user: req.user, poll: poll, share: share, data_graph: data_graph })
+      } else {
+        res.redirect('/');
+      }
     });
   };
 
