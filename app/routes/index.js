@@ -1,5 +1,6 @@
 'use strict';
 
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var VotingCamp = require(process.cwd() + '/app/controllers/votingCamp.server.js');
 
 module.exports = function (app, passport) {
@@ -27,13 +28,13 @@ module.exports = function (app, passport) {
     });
 
   app.get('/admin',
-    require('connect-ensure-login').ensureLoggedIn('/'),
+    ensureLoggedIn('/'),
     function(req, res){
       res.render('dashboard', { user: req.user });
     });
 
   app.get('/admin/new',
-    require('connect-ensure-login').ensureLoggedIn('/'),
+    ensureLoggedIn('/'),
     function(req, res){
       res.render('new', { user: req.user });
     });
@@ -42,25 +43,27 @@ module.exports = function (app, passport) {
     require('connect-ensure-login').ensureLoggedIn('/'),
     votingCamp.myPolls);
 
-  app.route('/polls/:hash')
-    .get(votingCamp.showPoll);
+  app.get('/polls/:hash',
+    votingCamp.showPoll);
 
-  app.route('/polls')
-    .get(votingCamp.showPolls);
+  app.get('/polls',
+    votingCamp.showPolls);
 
   app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn('/'),
+    ensureLoggedIn('/'),
     function(req, res){
       res.render('profile', { user: req.user });
     });
 
-  app.route('/api/polls')
-      .post(votingCamp.newPoll);
+  app.post('/api/polls',
+    ensureLoggedIn('/'),
+    votingCamp.newPoll);
 
-  app.route('/api/vote')
-      .post(votingCamp.addVote);
+  app.post('/api/vote',
+    votingCamp.addVote);
 
-  app.route('/api/polls/:hash')
-      .delete(votingCamp.delPoll);
+  app.delete('/api/polls/:hash',
+    ensureLoggedIn('/'),
+    votingCamp.delPoll);
 
 };
