@@ -73,24 +73,29 @@ function VotingCamp() {
   this.newPoll = function(req, res) {
     var options = [];
     for (var i in req.body.options) {
-      options.push({'name': req.body.options[i], 'votes': []});
+      if(req.body.options[i]) {
+        options.push({'name': req.body.options[i], 'votes': []});
+      }
     }
-    var poll = new Poll({
-      'user_id': req.user._id,
-      'title': req.body.title,
-      'hash': ys.hash(req.body.title),
-      'date': new Date(),
-      'votes': 0,
-      'options': options
-    });
-    poll.save(function(err, doc) {
-      if(err) throw err;
-      res.json(doc);
-    });
+    if (req.body.title && (options.length > 1)) {
+      var poll = new Poll({
+        'user_id': req.user._id,
+        'title': req.body.title,
+        'hash': ys.hash(req.body.title),
+        'date': new Date(),
+        'votes': 0,
+        'options': options
+      });
+      poll.save(function(err, doc) {
+        if(err) throw err;
+        res.json(doc);
+      });
+    } else {
+      res.json({ error: true, message: 'Information incomplete!' });
+    }
   }
 
   this.delPoll = function (req, res) {
-    console.log(req.isAuthenticated());
     var hash = req.params.hash;
     Poll.findOne({ 'hash': hash }, function(err, poll) {
       if (err) throw err;
@@ -104,7 +109,6 @@ function VotingCamp() {
   }
 
   this.myPolls = function (req, res) {
-    console.log(req.isAuthenticated());
     Poll.find({ 'user_id': req.user._id }, { _id: false, __v: false }, function(err, polls) {
       if (err) throw err;
       res.render('my', { user: req.user, polls: polls });
@@ -112,7 +116,6 @@ function VotingCamp() {
   }
 
   this.showPolls = function (req, res) {
-    console.log(req.isAuthenticated());
     Poll.find({}, { _id: false, __v: false }, function(err, polls) {
       if (err) throw err;
       res.render('polls', { user: req.user, polls: polls });
@@ -120,7 +123,6 @@ function VotingCamp() {
   }
 
   this.showPoll = function(req, res) {
-    console.log(req.isAuthenticated());
     var hash = req.params.hash;
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var share  = 'https://twitter.com/intent/tweet?hashtags=poll,fcc&text=';

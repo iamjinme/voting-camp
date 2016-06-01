@@ -3,12 +3,12 @@ extends ./dashboard.jade
 block poll
   div#poll.columns
     div.column.col-6.centered
+      div.toast.toast-success.hide
+        button(class='btn btn-clear float-right')
+        span
+          i.fa.fa-exclamation-circle
+          span#message  Lorem ipsum dolor sit amet, consectetur adipiscing elit.    
       div.hide
-        div.toast.toast-success
-          button(class='btn btn-clear float-right')
-          span
-            i.fa.fa-exclamation-circle
-            span#message  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         a#go_poll(class='btn btn-link' href='#') Go to Poll!
       form#new_poll
         h2.green New Poll

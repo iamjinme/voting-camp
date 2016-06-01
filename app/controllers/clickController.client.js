@@ -5,7 +5,7 @@ $(document).ready(function() {
   $('#my').click(function() {
     window.location.href = '/admin/polls'
   });
-  $('#more').click(function() {
+  $('#more').click(function(e) {
     $('#options').append('<input type="text" name="options[]" placeholder="...and more" class="form-input">');
     e.preventDefault();
   });
@@ -115,20 +115,36 @@ $(document).ready(function() {
     };
     e.preventDefault();
   });
+  // Check options on new poll
+  function checkOptions() {
+    var options = 0;
+    $('#new_poll input').map(function() {
+      if($(this).val()) {
+        options++;
+      }
+    });
+    return (options > 2);
+  };
   // Submit Form :: New Poll
   $('#new_poll')
   .submit(function(e) {
     var data = $(this).serialize();
-    if ($("#title").val()) {
+    if ($("#title").val() && checkOptions()) {
       $.ajax({
         url: '/api/polls',
         type: 'POST',
         data: data
       }).done(function(json){
-        $('div.hide').removeClass('hide');
-        $('#message').html(' Great, you have created poll "' + json.title + '"');
-        $('#go_poll').attr('href', '/polls/' + json.hash);
-        $('#new_poll').addClass('hide');
+        if (json.error) {
+          $('#message').html(' ' + json.message);
+          $('div.toast').removeClass('toast-success').addClass('toast-danger').removeClass('hide');
+        } else {
+          $('#message').html(' Great, you have created poll "' + json.title + '"');
+          $('#go_poll').attr('href', '/polls/' + json.hash);
+          $('div.hide').removeClass('hide');
+          $('div.toast').removeClass('toast-danger').addClass('toast-success').removeClass('hide');
+          $('#new_poll').addClass('hide');
+        }
       });
     };
     e.preventDefault();
